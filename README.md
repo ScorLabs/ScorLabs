@@ -8,7 +8,7 @@ Workspace calls to action open `https://platform.scorlabs-ai.com/`, a static HTT
 
 ## Static platform entry maintenance
 
-`platform/` contains exactly `index.html` and `_headers`. Upload that folder through Cloudflare Workers' static Assets dashboard to maintain the independent platform entry. This is a manual static deployment, separate from the official site's GitHub Pages publication. Do not upload private runtime files, backend code, data, secrets, or credential configuration.
+`platform/` contains exactly `index.html` and `_headers`. The independent platform entry is an assets-only Cloudflare Worker, separate from the official site's GitHub Pages publication. To update it with an authorized Cloudflare login, run `npm exec --yes --package=wrangler@4.163.0 -- wrangler deploy --config wrangler.platform.jsonc`. The config uploads only `platform/`, contains no account credential, and preserves the existing worker name. Do not upload private runtime files, backend code, data, secrets, or credential configuration.
 
 The entry contains no scripts, cookies, forms, third-party assets, or API proxy. `_headers` supplies CSP, no-sniff, referrer and no-store policies. Its `style-src` SHA-256 must match the exact inline `<style>` content in `index.html`; update the hash whenever the CSS changes. After each upload, verify the custom domain's TLS, rendered content and actual response headers. A static entry deployment does not mean the public research backend is deployed.
 

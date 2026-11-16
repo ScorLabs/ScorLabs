@@ -3,5 +3,6 @@
 .env.*
 *.log
 node_modules/
+.wrangler/
 screenshots/
 test-results/
